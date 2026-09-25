@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Preet Kumar — SDE & GenAI Engineer</title>
+<meta name="description" content="Preet Kumar — Software engineer focused on retrieval systems, LLM pipelines, and competitive programming.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel-2:#1c2230; --line:#2a313c;
+    --ink:#e6edf3; --muted:#8b949e; --dim:#6b7280;
+    --accent:#39d0d8; --accent-dim:#1f7a80; --signal:#ffa657;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --sans:'Inter',system-ui,sans-serif;
+    --display:'Space Grotesk',var(--sans);
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme:light){
+    :root:not([data-theme="dark"]){
+      --bg:#f7f8fa; --panel:#ffffff; --panel-2:#f0f2f5; --line:#e2e5ea;
+      --ink:#161b22; --muted:#5a6472; --dim:#8b93a1;
+      --accent:#0b8f97; --accent-dim:#7fd4d9; --signal:#c26a12;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.6;
+    font-weight:400;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--accent);color:var(--bg)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+  /* NAV */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    padding-top:env(safe-area-inset-top,0px);
+    background:color-mix(in srgb,var(--bg) 82%,transparent);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:-.02em}
+  .brand span{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;font-size:14px;color:var(--muted);font-weight:450}
+  .nav-links a{transition:color .18s}
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--ink)}
+  .nav-links a:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:2px}
+  @media (max-width:720px){.nav-links{display:none}}
+
+  /* HERO */
+  .hero{padding:96px 0 72px;position:relative}
+  .hero .avail{
+    display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);
+    font-size:12.5px;color:var(--muted);margin-bottom:28px;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 var(--accent);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent)}
+    70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  @media (prefers-reduced-motion:reduce){.dot{animation:none}}
+  .hero h1{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(2.6rem,6.5vw,4.6rem);line-height:1.02;
+    letter-spacing:-.03em;margin:0 0 22px;max-width:16ch;
+  }
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero .lede{font-size:clamp(1.05rem,2.2vw,1.28rem);color:var(--muted);
+    max-width:60ch;line-height:1.55;font-weight:450}
+  .hero .lede b{color:var(--ink);font-weight:600}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+  .btn{
+    font-family:var(--mono);font-size:13.5px;font-weight:500;
+    padding:11px 20px;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel);transition:all .18s;display:inline-flex;align-items:center;gap:9px;
+  }
+  .btn:hover,.btn:focus-visible{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+  .btn.primary{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600}
+  .btn.primary:hover,.btn.primary:focus-visible{background:transparent;color:var(--accent)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  /* STAT STRIP */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    margin-top:64px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  }
+  .stat{background:var(--panel);padding:22px 20px}
+  .stat .n{font-family:var(--mono);font-size:clamp(1.5rem,3.4vw,2.1rem);
+    font-weight:600;color:var(--ink);letter-spacing:-.02em}
+  .stat .n small{color:var(--accent);font-size:.62em}
+  .stat .l{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.35}
+  @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  /* SECTIONS */
+  section{padding:80px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:44px}
+  .sec-head .idx{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500}
+  .sec-head h2{font-family:var(--display);font-size:clamp(1.5rem,3.6vw,2.1rem);
+    font-weight:600;letter-spacing:-.02em;margin:0}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start}
+  @media (max-width:800px){.about-grid{grid-template-columns:1fr;gap:36px}}
+  .about p{color:var(--muted);font-size:1.06rem;line-height:1.7;margin:0 0 18px;max-width:62ch}
+  .about p b{color:var(--ink);font-weight:600}
+  .facts{border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+  .fact{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;
+    border-bottom:1px solid var(--line);font-size:14px}
+  .fact:last-child{border-bottom:0}
+  .fact .k{color:var(--dim);font-family:var(--mono);font-size:12.5px}
+  .fact .v{color:var(--ink);text-align:right;font-weight:500}
+
+  /* EXPERIENCE TIMELINE */
+  .tl{position:relative;padding-left:28px}
+  .tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .tl-item{position:relative;padding-bottom:44px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:"";position:absolute;left:-28px;top:6px;width:14px;height:14px;
+    border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+  .tl-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+  .tl-role{font-family:var(--display);font-size:1.22rem;font-weight:600;letter-spacing:-.01em}
+  .tl-role span{color:var(--muted);font-weight:400;font-size:.9em}
+  .tl-date{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+  .tl-body{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:11px}
+  .tl-body li{position:relative;padding-left:20px;color:var(--muted);font-size:.98rem;line-height:1.6}
+  .tl-body li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;
+    border-radius:1px;background:var(--accent-dim)}
+  .tl-body b{color:var(--ink);font-weight:600}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--signal);
+    border:1px solid color-mix(in srgb,var(--signal) 40%,transparent);
+    padding:2px 8px;border-radius:20px;margin-top:12px}
+
+  /* PROJECTS */
+  .proj{border:1px solid var(--line);border-radius:14px;background:var(--panel);
+    padding:32px;margin-bottom:22px;transition:border-color .2s}
+  .proj:hover{border-color:var(--accent-dim)}
+  .proj-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .proj h3{font-family:var(--display);font-size:1.4rem;font-weight:600;margin:0;letter-spacing:-.02em}
+  .proj h3 .code{color:var(--accent)}
+  .proj-links{display:flex;gap:14px;font-family:var(--mono);font-size:12.5px}
+  .proj-links a{color:var(--muted);transition:color .18s;border-bottom:1px solid transparent;padding-bottom:1px}
+  .proj-links a:hover,.proj-links a:focus-visible{color:var(--accent);border-color:var(--accent)}
+  .proj-tag{color:var(--muted);font-size:.92rem;margin:0 0 18px;font-family:var(--mono);font-size:12.5px}
+  .proj ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+  .proj li{position:relative;padding-left:20px;color:var(--muted);line-height:1.62}
+  .proj li::before{content:"›";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
+  .proj b{color:var(--ink);font-weight:600}
+  .metric{font-family:var(--mono);color:var(--accent);font-weight:500}
+  .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .stack span{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    background:var(--panel-2);border:1px solid var(--line);padding:4px 10px;border-radius:6px}
+
+  /* ACHIEVEMENTS */
+  .ach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media (max-width:720px){.ach-grid{grid-template-columns:1fr}}
+  .ach{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:24px}
+  .ach .big{font-family:var(--mono);font-size:1.75rem;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+  .ach .big span{color:var(--signal)}
+  .ach p{margin:8px 0 0;color:var(--muted);font-size:.95rem;line-height:1.55}
+  .cp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:18px}
+  @media (max-width:560px){.cp-grid{grid-template-columns:1fr}}
+  .cp{background:var(--panel);padding:20px}
+  .cp .plat{font-size:13px;color:var(--muted);font-family:var(--mono)}
+  .cp .rank{font-family:var(--display);font-size:1.3rem;font-weight:600;margin-top:4px}
+  .cp .rank b{color:var(--accent)}
+  .cp .sub{font-size:12px;color:var(--dim);margin-top:2px;font-family:var(--mono)}
+
+  /* SKILLS */
+  .skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media (max-width:720px){.skill-grid{grid-template-columns:1fr}}
+  .skill{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:18px 20px}
+  .skill .cat{font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:10px}
+  .skill .items{display:flex;flex-wrap:wrap;gap:7px}
+  .skill .items span{font-size:13px;color:var(--muted);background:var(--panel-2);
+    padding:3px 10px;border-radius:6px;border:1px solid var(--line)}
+
+  /* CONTACT */
+  .contact{text-align:left}
+  .contact h2{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);font-weight:600;
+    letter-spacing:-.03em;margin:0 0 20px;max-width:18ch}
+  .contact h2 em{font-style:normal;color:var(--accent)}
+  .contact p{color:var(--muted);max-width:52ch;margin:0 0 32px;font-size:1.08rem}
+  .clinks{display:flex;flex-wrap:wrap;gap:14px}
+
+  footer{border-top:1px solid var(--line);padding:32px 0;color:var(--dim);
+    font-family:var(--mono);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">preet<span>.kumar</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="border-top:0">
+  <div class="wrap">
+    <div class="avail"><span class="dot"></span>B.Tech · IIIT Surat · 2027 · open to SDE / GenAI roles</div>
+    <h1>I build <em>retrieval systems</em> and LLM pipelines that measurably work.</h1>
+    <p class="lede">Software engineer working across <b>RAG</b>, <b>full-stack web</b>, and <b>competitive programming</b>. I care about the number that proves a system got better — from a <b>27%→99%</b> retrieval hit rate to a team eval rubric lifted <b>65%→80%</b>.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn" href="https://github.com/Preet-Agrawal" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="mailto:preet81027@gmail.com">Email</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n">99<small>%</small></div><div class="l">Top-1 retrieval hit rate (PARA)</div></div>
+      <div class="stat"><div class="n">1200<small>+</small></div><div class="l">DSA problems solved</div></div>
+      <div class="stat"><div class="n">1881</div><div class="l">LeetCode rating · Knight</div></div>
+      <div class="stat"><div class="n">200<small>+</small></div><div class="l">Contest problems authored</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div class="about">
+        <p>I'm a third-year Electronics &amp; Communication student at <b>IIIT Surat</b> who spends most of my time on software — building systems where I can point at a metric and say <b>this is better now, and here's by how much</b>.</p>
+        <p>My work sits at the intersection of <b>GenAI infrastructure</b> and <b>solid engineering</b>: a multi-granularity RAG pipeline that killed the lost-in-the-middle effect, LLM evaluation tasks for training pipelines, full-stack apps with real auth and real users, and a computer-vision attendance system in Python. Alongside that, I've solved <b>1200+</b> algorithmic problems and set <b>200+</b> contest problems for my college coding society.</p>
+        <p>I like ablations, fallbacks, and honest self-verification — the parts of engineering that make a claim trustworthy.</p>
+      </div>
+      <div class="facts" aria-label="Quick facts">
+        <div class="fact"><span class="k">education</span><span class="v">B.Tech ECE, IIIT Surat</span></div>
+        <div class="fact"><span class="k">graduation</span><span class="v">May 2027</span></div>
+        <div class="fact"><span class="k">cgpa</span><span class="v">8.18</span></div>
+        <div class="fact"><span class="k">focus</span><span class="v">GenAI · RAG · Full-stack</span></div>
+        <div class="fact"><span class="k">location</span><span class="v">Surat, India</span></div>
+        <div class="fact"><span class="k">languages</span><span class="v">C/C++ · Python · JS</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">02</span><h2>Experience</h2></div>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-top">
+          <div class="tl-role">Software Development Engineer Intern <span>· Xelron AI</span></div>
+          <div class="tl-date">Jan 2026 — Mar 2026</div>
+        </div>
+        <ul class="tl-body">
+          <li>Built evaluation tasks for <b>LLM training pipelines</b> from <b>30+ real open-source pull requests</b>, authoring prompts and acceptance criteria to test how well models handle actual engineering changes.</li>
+          <li>Compared two competing model solutions per task across <b>5 quality checks</b> — correctness, code structure, scope discipline, safety, and honest self-verification — treating functional bugs and security issues as blocking failures.</li>
+          <li>Refined the shared rubric with a <b>5-member team</b> by analyzing rejected submissions and failure patterns, raising evaluation accuracy from <b>65% to 80%</b> team-wide.</li>
+        </ul>
+        <span class="pill">Recognized as Contributor of the Week</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-top">
+          <div class="tl-role">Problem Setter <span>· LCS, IIIT Surat</span></div>
+          <div class="tl-date">Apr 2025 — Apr 2026</div>
+        </div>
+        <ul class="tl-body">
+          <li>Designed and refined <b>200+ programming problems</b> across <b>25+ coding competitions</b>.</li>
+          <li>Reviewed problems authored by juniors — validating solvability, constraints, and test coverage before release.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">03</span><h2>Projects</h2></div>
+
+    <article class="proj">
+      <div class="proj-top">
+        <h3>PARA<span class="code"> — Position-Aware Retrieval Augmentation</span></h3>
+        <div class="proj-links"><a href="https://github.com/Preet-Agrawal" target="_blank" rel="noopener">GitHub ↗</a></div>
+      </div>
+      <p class="proj-tag">Python · React · Node/Express · FastAPI · Groq</p>
+      <ul>
+        <li>Built a <b>multi-granularity RAG pipeline</b> (sentence / paragraph / section chunking) that eliminated the lost-in-the-middle effect on a <b>43k-word corpus</b>, lifting top-1 retrieval hit rate from <span class="metric">27% → 99%</span> (mean rank <span class="metric">13.4 → 1.0</span>) across 600 measurements.</li>
+        <li>Ran a <b>component-wise ablation across 4 conditions</b> that identified chunking as the dominant driver, and benchmarked against <b>11 retrieval strategies</b>.</li>
+        <li>Implemented PDF ingestion, <b>sinusoidal position-bias correction</b>, and multi-provider LLM fallback across Groq, Gemini, OpenAI, and Anthropic — with GitHub Actions CI on every PR.</li>
+      </ul>
+      <div class="stack"><span>RAG</span><span>Embeddings</span><span>FastAPI</span><span>React</span><span>Node.js</span><span>CI/CD</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-top">
+        <h3>Summarize<span class="code"> — AI-Powered Quiz Generator</span></h3>
+        <div class="proj-links">
+          <a href="https://github.com/Preet-Agrawal" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="#contact">Live Demo ↗</a>
+        </div>
+      </div>
+      <p class="proj-tag">React · Node/Express · MongoDB · Hugging Face API</p>
+      <ul>
+        <li>Developed a full-stack summarization and quiz app serving <b>20+ active users</b>, integrating Hugging Face transformer models with a <b>rule-based fallback</b> that guarantees output when the AI API is down.</li>
+        <li>Implemented <b>JWT auth</b> (jsonwebtoken, httpOnly cookies, bcrypt) and a MongoDB scoring system that <b>adapts question difficulty</b> from a user's average over their last 3 attempts.</li>
+      </ul>
+      <div class="stack"><span>MongoDB</span><span>JWT</span><span>bcrypt</span><span>Hugging Face</span><span>Render</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-top">
+        <h3>Face Recognition<span class="code"> — Attendance System</span></h3>
+        <div class="proj-links">
+          <a href="https://github.com/Preet-Agrawal/Face-Recognition-Attendance-System" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+      <p class="proj-tag">Python · MTCNN · OpenCV · face-recognition (dlib) · SQL</p>
+      <ul>
+        <li>Built a <b>real-time attendance system</b> that detects faces through a webcam with <b>MTCNN</b>, encodes and matches them with the dlib <b>face-recognition</b> library, and marks attendance with timestamps automatically.</li>
+        <li>Backed it with <b>SQL storage</b> for persistent records, one-click <b>Excel export</b> of attendance reports, and an image-capture flow for registering new users.</li>
+      </ul>
+      <div class="stack"><span>OpenCV</span><span>MTCNN</span><span>dlib</span><span>SQLite</span><span>Pandas</span><span>OpenPyXL</span></div>
+    </article>
+  </div>
+</section>
+
+<section id="achievements">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">04</span><h2>Achievements</h2></div>
+    <div class="ach-grid">
+      <div class="ach">
+        <div class="big">11<span>th</span> / 2000+</div>
+        <p>Secured 11th rank nationally in <b>CodeNCompete</b>, organized by IIT Kanpur, after qualifying round one.</p>
+      </div>
+      <div class="ach">
+        <div class="big">3<span>rd</span> place</div>
+        <p>Codewars Competition at <b>MindBend'25</b> — SVNIT Surat's techfest.</p>
+      </div>
+    </div>
+
+    <div class="cp-grid">
+      <div class="cp"><div class="plat">LeetCode</div><div class="rank"><b>Knight</b> 1881</div><div class="sub">best rank 803 / 39050</div></div>
+      <div class="cp"><div class="plat">Codeforces</div><div class="rank"><b>Specialist</b></div><div class="sub">max 1408</div></div>
+      <div class="cp"><div class="plat">CodeChef</div><div class="rank"><b>3★</b></div><div class="sub">max 1612</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">05</span><h2>Technical Skills</h2></div>
+    <div class="skill-grid">
+      <div class="skill"><div class="cat">languages</div><div class="items"><span>C/C++</span><span>Python</span><span>JavaScript</span></div></div>
+      <div class="skill"><div class="cat">genai &amp; ml</div><div class="items"><span>RAG</span><span>Embeddings</span><span>Vector Search</span><span>Prompt Engineering</span><span>LLM APIs</span><span>HF Transformers</span></div></div>
+      <div class="skill"><div class="cat">web</div><div class="items"><span>React.js</span><span>Node.js</span><span>Express.js</span><span>REST APIs</span><span>FastAPI</span></div></div>
+      <div class="skill"><div class="cat">data &amp; tools</div><div class="items"><span>MongoDB</span><span>SQL</span><span>GitHub</span><span>GitHub Actions</span></div></div>
+      <div class="skill"><div class="cat">llm providers</div><div class="items"><span>OpenAI</span><span>Anthropic</span><span>Gemini</span><span>Groq</span></div></div>
+      <div class="skill"><div class="cat">core cs</div><div class="items"><span>DSA</span><span>OS</span><span>Networks</span><span>DBMS</span><span>OOP</span><span>ML</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">06</span><h2 style="margin:0">Contact</h2></div>
+    <h2>Let's build something <em>measurable</em>.</h2>
+    <p>Open to SDE and GenAI internship / full-time roles. The fastest way to reach me is email — I usually reply within a day.</p>
+    <div class="clinks">
+      <a class="btn primary" href="mailto:preet81027@gmail.com">preet81027@gmail.com</a>
+      <a class="btn" href="tel:+917004613120">+91 7004613120</a>
+      <a class="btn" href="https://github.com/Preet-Agrawal" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="https://www.linkedin.com/in/preet-kumar-46684427b/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;width:100%;gap:10px;flex-wrap:wrap">
+    <span>© 2026 Preet Kumar</span>
+    <span>Built with plain HTML &amp; CSS</span>
+  </div>
+</footer>
+
+<script>
+  // Active nav link on scroll
+  const links=[...document.querySelectorAll('.nav-links a')];
+  const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+  const obs=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){
+      links.forEach(l=>l.style.color='');
+      const a=map.get(e.target.id); if(a)a.style.color='var(--ink)';
+    }});
+  },{rootMargin:'-45% 0px -50% 0px'});
+  ['about','experience','projects','achievements','contact'].forEach(id=>{
+    const el=document.getElementById(id); if(el)obs.observe(el);
+  });
+</script>
+</body>
+</html>
